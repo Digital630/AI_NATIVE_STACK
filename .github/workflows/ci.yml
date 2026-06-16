@@ -56,7 +56,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          # Node 24 ships npm 11, matching the npm that generated package-lock.json.
+          # Node 22 (npm 10) resolves esbuild differently and rejects the lock under `npm ci`.
+          node-version: "24"
           cache: "npm"
           cache-dependency-path: agrismes-ai/package-lock.json
 
