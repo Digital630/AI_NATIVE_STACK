@@ -1,4 +1,6 @@
 name: CI
+# Both products are first-class directories in this monorepo (no submodules).
+# Each job cd's into its product directory via defaults.run.working-directory.
 
 on:
   push:
