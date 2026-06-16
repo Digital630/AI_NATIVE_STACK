@@ -75,12 +75,12 @@ async function call<T>(action: ApiAction, body: Record<string, unknown> = {}) {
 // Legacy shims — used only by pages not loaded by the current App.tsx.
 // These are no-ops; do not use in new code.
 export const getSession = (): null => null;
-export const setSession = (_d: object): void => {};
+export const setSession = (_data: object): void => {};
 export const clearSession = (): void => {};
 
 export const tradedoc = {
-  signup: async (_d: Record<string, unknown>) => { throw new Error('signup removed — use Supabase OTP'); },
-  confirmEmail: async (_token: string) => { throw new Error('confirmEmail removed — use Supabase OTP'); },
+  signup: async (_data: Record<string, unknown>) => { throw new Error('signup removed — use Supabase OTP'); },
+  confirmEmail: async (_otp: string) => { throw new Error('confirmEmail removed — use Supabase OTP'); },
   activatePro: (paymentReference: string) => call<Dashboard>('activate_pro', { payment_reference: paymentReference }),
   generateDoc: (d: { doc_type: string; payload: Record<string, string> }) => call<GenerateDocResponse>('generate_doc', d),
   getDashboard: () => call<Dashboard>('get_dashboard'),

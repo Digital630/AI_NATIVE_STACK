@@ -161,7 +161,7 @@ export function useGlobalWeather() {
     [writeCache]
   );
 
-  const useCachedIfAvailable = useCallback((message: string) => {
+  const getCachedIfAvailable = useCallback((message: string) => {
     const cached = localStorage.getItem(WEATHER_CACHE_KEY);
     if (!cached) return false;
     try {
@@ -195,7 +195,7 @@ export function useGlobalWeather() {
         applyApiPayload(payload, opts);
       } catch (error) {
         console.error("Weather fetch error:", error);
-        if (!useCachedIfAvailable("Using cached data")) {
+        if (!getCachedIfAvailable("Using cached data")) {
           setState((prev) => ({
             ...prev,
             isLoading: false,
@@ -204,7 +204,7 @@ export function useGlobalWeather() {
         }
       }
     },
-    [applyApiPayload, invokeGlobalWeather, useCachedIfAvailable]
+    [applyApiPayload, invokeGlobalWeather, getCachedIfAvailable]
   );
 
   const fetchWeatherByIp = useCallback(
@@ -216,7 +216,7 @@ export function useGlobalWeather() {
         applyApiPayload(payload, opts);
       } catch (error) {
         console.error("Weather fetch error:", error);
-        if (!useCachedIfAvailable("Using cached data")) {
+        if (!getCachedIfAvailable("Using cached data")) {
           setState((prev) => ({
             ...prev,
             isLoading: false,
@@ -225,7 +225,7 @@ export function useGlobalWeather() {
         }
       }
     },
-    [applyApiPayload, invokeGlobalWeather, useCachedIfAvailable]
+    [applyApiPayload, invokeGlobalWeather, getCachedIfAvailable]
   );
 
   const searchCity = useCallback(async (query: string): Promise<LocationData[]> => {
