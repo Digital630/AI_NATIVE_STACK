@@ -96,6 +96,10 @@ export function AdminCodeEntry({
 
   const handleVerify = async () => {
     if (isLocked || !code.trim()) return;
+    if (code.trim().length < 8) {
+      setError("Admin code must be at least 8 characters.");
+      return;
+    }
 
     setIsVerifying(true);
     setError(null);
@@ -161,7 +165,7 @@ export function AdminCodeEntry({
             Admin Access
           </DialogTitle>
           <DialogDescription>
-            Enter your 4-digit admin code to bypass points requirement and view full contact details.
+            Enter your admin code to bypass points requirement and view full contact details.
           </DialogDescription>
         </DialogHeader>
 
@@ -172,27 +176,27 @@ export function AdminCodeEntry({
         >
           {/* Code Input */}
           <div className="space-y-2">
-            <label className="text-sm font-medium">4-Digit Admin Code</label>
+            <label className="text-sm font-medium">Admin Code</label>
             <div className="relative">
               <Input
                 type={showCode ? "text" : "password"}
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={4}
-                placeholder="••••"
+                maxLength={64}
+                autoComplete="off"
+                placeholder="Enter admin code (min 8 characters)"
                 value={code}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "").slice(0, 4);
+                  // Allow letters, numbers, and symbols; cap at 64 chars.
+                  const value = e.target.value.slice(0, 64);
                   setCode(value);
                   setError(null);
                 }}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && code.length === 4 && !isLocked) {
+                  if (e.key === "Enter" && code.trim().length >= 8 && !isLocked) {
                     handleVerify();
                   }
                 }}
                 disabled={isLocked}
-                className={`pr-10 text-center text-2xl font-mono tracking-[0.5em] h-14 ${error ? "border-destructive" : ""}`}
+                className={`pr-10 font-mono h-12 ${error ? "border-destructive" : ""}`}
               />
               <button
                 type="button"
@@ -242,7 +246,7 @@ export function AdminCodeEntry({
             </Button>
             <Button
               onClick={handleVerify}
-              disabled={code.length !== 4 || isVerifying || isLocked}
+              disabled={code.trim().length < 8 || isVerifying || isLocked}
               className="flex-1 gap-2"
             >
               {isVerifying ? (

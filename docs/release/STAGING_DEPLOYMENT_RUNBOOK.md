@@ -73,7 +73,7 @@ Legend: **Required** = app/feature breaks without it · **Optional** = degrades 
 | Var | Class | Notes |
 |---|---|---|
 | `ADMIN_SESSION_SECRET` | **Required (NEW)** | ≥32B random; signs admin session tokens. **If unset, admin login fails closed (500).** `openssl rand -base64 48` |
-| `ADMIN_CODE` | **Required — ROTATE** | Admin login code. **MUST be rotated off the weak `"2468"`** before staging. |
+| `ADMIN_CODE` | **Required — ROTATE** | Admin login code. **Rotate off `"2468"`.** Login UI now accepts 8–64 chars (letters/numbers/symbols) — use a strong 16+ char value (≥64 bits entropy). Generate: `openssl rand -base64 12 \| tr -dc 'A-Za-z0-9' \| head -c 16`. |
 | `SUPABASE_URL` | **Required** | edge fns |
 | `SUPABASE_SERVICE_ROLE_KEY` | **Required** | edge fns (auto-provided by Supabase, but verify) |
 | `RESEND_API_KEY` | **Required** | `send-chat-message`, `send-welcome-email` |
