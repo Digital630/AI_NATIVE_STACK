@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
-const SB_URL = 'https://pttcugqwslvdstmrbyhu.supabase.co'
-const ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB0dGN1Z3F3c2x2ZHN0bXJieWh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwOTg2NTgsImV4cCI6MjA5MjY3NDY1OH0.aMk9ZIzC9wQ1fWEK2itSlQ3qoQaOQJUTm7TDSwvbpaY'
+const SB_URL = import.meta.env.VITE_SUPABASE_URL as string
+const ANON   = import.meta.env.VITE_SUPABASE_ANON_KEY as string
 
 interface SavedTrade {
   id: string

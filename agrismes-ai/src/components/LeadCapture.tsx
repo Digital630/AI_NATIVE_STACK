@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-const SUPABASE_URL = 'https://pttcugqwslvdstmrbyhu.supabase.co'
-const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB0dGN1Z3F3c2x2ZHN0bXJieWh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwOTg2NTgsImV4cCI6MjA5MjY3NDY1OH0.aMk9ZIzC9wQ1fWEK2itSlQ3qoQaOQJUTm7TDSwvbpaY'
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string
+const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string
 
 const ROLES = ['Exporter','Importer','Processor','Broker/Trader','Financier','Farmer','Other']
 
