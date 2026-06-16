@@ -154,11 +154,12 @@ export default function UnlockExclusiveServices() {
   const loadAdminMessages = async () => {
     setAdminInboxLoading(true);
     try {
-      // Use server-side edge function to bypass RLS for admin access
+      // Use server-side edge function to bypass RLS for admin access.
+      // Authorized by the signed admin session token (not a hardcoded code).
       const response = await supabase.functions.invoke("admin-messages", {
         body: {
           action: "list",
-          adminCode: "2468",
+          adminToken: localStorage.getItem("agrismes_admin_token") || "",
         },
       });
 
@@ -333,6 +334,7 @@ export default function UnlockExclusiveServices() {
                     size="sm"
                     onClick={() => {
                       localStorage.removeItem("agrismes_admin_access");
+                      localStorage.removeItem("agrismes_admin_token");
                       setIsAdmin(false);
                       setAdminMessages([]);
                       toast.success("Admin session ended");
@@ -484,7 +486,7 @@ export default function UnlockExclusiveServices() {
                                         await supabase.functions.invoke("admin-messages", {
                                           body: {
                                             action: "markRead",
-                                            adminCode: "2468",
+                                            adminToken: localStorage.getItem("agrismes_admin_token") || "",
                                             messageId: msg.id,
                                           },
                                         });

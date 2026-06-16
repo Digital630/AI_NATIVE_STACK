@@ -31,9 +31,15 @@ export function useListingsAdmin() {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [isClearingAll, setIsClearingAll] = useState(false);
 
-  // Check if admin is verified via localStorage
+  // Check if admin is verified via localStorage (UI gating only)
   const isAdminVerified = useCallback(() => {
     return localStorage.getItem("agrismes_admin_access") === "true";
+  }, []);
+
+  // The signed admin session token issued by admin-verify. This — not the
+  // localStorage boolean — is what authorizes privileged edge-function calls.
+  const getAdminToken = useCallback(() => {
+    return localStorage.getItem("agrismes_admin_token") || "";
   }, []);
 
   // Fetch listings from the SINGLE SOURCE OF TRUTH: commodity_listings table
@@ -69,7 +75,7 @@ export function useListingsAdmin() {
           action,
           listingId,
           listingIds,
-          adminToken: isAdminVerified() ? "verified" : "invalid",
+          adminToken: getAdminToken(),
         },
       });
 
@@ -94,7 +100,7 @@ export function useListingsAdmin() {
         error: error.message || "Operation failed",
       };
     }
-  }, [isAdminVerified]);
+  }, [getAdminToken]);
 
   const approveListing = useCallback(async (listingId: string, onSuccess: () => Promise<void>) => {
     if (!isAdminVerified()) {

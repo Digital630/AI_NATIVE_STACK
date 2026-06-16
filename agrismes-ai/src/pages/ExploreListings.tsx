@@ -130,6 +130,7 @@ export default function ExploreListings() {
 
   const handleAdminLogout = () => {
     localStorage.removeItem("agrismes_admin_access");
+    localStorage.removeItem("agrismes_admin_token");
     setIsAdmin(false);
     toast.success("Admin access deactivated");
   };

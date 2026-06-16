@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.47.0";
+import { mintAdminToken } from "../_shared/adminAuth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -8,6 +9,8 @@ const corsHeaders = {
 
 // Admin code - loaded from environment secret
 const ADMIN_CODE = Deno.env.get("ADMIN_CODE");
+// Secret used to sign short-lived admin session tokens (server-only).
+const ADMIN_SESSION_SECRET = Deno.env.get("ADMIN_SESSION_SECRET");
 
 // Lockout durations in minutes by cycle
 const LOCKOUT_DURATIONS = [15, 30, 24 * 60]; // 15min, 30min, 24 hours
@@ -111,10 +114,24 @@ serve(async (req) => {
         attempt_type: "success",
       });
 
+      if (!ADMIN_SESSION_SECRET) {
+        console.error("[admin-verify] ADMIN_SESSION_SECRET not configured");
+        return new Response(
+          JSON.stringify({ success: false, error: "Server not configured for admin sessions" }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      // Mint a short-lived signed admin session token. Privileged endpoints
+      // verify this signature server-side — replacing the old client-trusted
+      // "verified" string / embedded admin code.
+      const token = await mintAdminToken(ADMIN_SESSION_SECRET);
+
       return new Response(
         JSON.stringify({
           success: true,
           message: "Admin access granted",
+          token,
         }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );

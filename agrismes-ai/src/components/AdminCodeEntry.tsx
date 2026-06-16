@@ -112,7 +112,11 @@ export function AdminCodeEntry({
       const data = response.data;
 
       if (data.success) {
-        // Server verified successfully - set admin flag
+        // Server verified successfully — store the signed session token used to
+        // authorize privileged admin endpoints, plus the UI-only access flag.
+        if (data.token) {
+          localStorage.setItem("agrismes_admin_token", data.token);
+        }
         localStorage.setItem("agrismes_admin_access", "true");
         toast.success("Admin access granted! Full contact details are now visible.");
         onAdminVerified();

@@ -1,19 +1,20 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.47.0";
+import { verifyAdminToken } from "../_shared/adminAuth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-admin-token",
 };
 
-// Admin code - loaded from environment secret (no longer hardcoded)
-const ADMIN_CODE = Deno.env.get("ADMIN_CODE");
+// Secret used to verify signed admin session tokens (server-only).
+const ADMIN_SESSION_SECRET = Deno.env.get("ADMIN_SESSION_SECRET");
 
 interface AdminListingRequest {
   action: "approve" | "reject" | "delete" | "clear_all";
   listingId?: string;
   listingIds?: string[];
-  adminToken: string; // Session token from localStorage to verify admin access
+  adminToken: string; // Signed admin session token issued by admin-verify
 }
 
 serve(async (req) => {
@@ -30,9 +31,11 @@ serve(async (req) => {
     const body: AdminListingRequest = await req.json();
     const { action, listingId, listingIds, adminToken } = body;
 
-    // Verify admin access token (must be true from localStorage, matches admin-verify flow)
-    if (adminToken !== "verified") {
-      console.error("[admin-listings] Invalid admin token");
+    // Verify the signed admin session token server-side. The token is minted
+    // only by admin-verify after a valid ADMIN_CODE + lockout check, and is
+    // signed with ADMIN_SESSION_SECRET — it cannot be forged by a client.
+    if (!ADMIN_SESSION_SECRET || !(await verifyAdminToken(adminToken, ADMIN_SESSION_SECRET))) {
+      console.error("[admin-listings] Invalid or missing admin session token");
       return new Response(
         JSON.stringify({ success: false, error: "Unauthorized - Admin access required" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }

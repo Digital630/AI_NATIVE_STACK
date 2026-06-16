@@ -1,17 +1,18 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.47.0";
+import { verifyAdminToken } from "../_shared/adminAuth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Admin code - loaded from environment secret
-const ADMIN_CODE = Deno.env.get("ADMIN_CODE");
+// Secret used to verify signed admin session tokens (server-only).
+const ADMIN_SESSION_SECRET = Deno.env.get("ADMIN_SESSION_SECRET");
 
 interface RequestBody {
   action: "list" | "markRead" | "reply";
-  adminCode: string;
+  adminToken: string; // Signed admin session token issued by admin-verify
   visitorId?: string;
   messageId?: string;
   replyText?: string;
@@ -30,12 +31,12 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const body: RequestBody = await req.json();
-    const { action, adminCode, visitorId, messageId, replyText, listingId } = body;
+    const { action, adminToken, visitorId, messageId, replyText, listingId } = body;
 
-    // Verify admin code
-    if (adminCode !== ADMIN_CODE) {
+    // Verify the signed admin session token server-side (see admin-verify).
+    if (!ADMIN_SESSION_SECRET || !(await verifyAdminToken(adminToken, ADMIN_SESSION_SECRET))) {
       return new Response(
-        JSON.stringify({ success: false, error: "Invalid admin code" }),
+        JSON.stringify({ success: false, error: "Unauthorized - Admin access required" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
