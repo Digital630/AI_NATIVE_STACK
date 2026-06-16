@@ -14,6 +14,8 @@
 // existing client-side localStorage preview limit (ANON_LIMIT=1) continues
 // to apply for unauthenticated preview, per product spec.
 
+import { captureError } from './_observability.js';
+
 const SB_URL = 'https://pttcugqwslvdstmrbyhu.supabase.co';
 const SB_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const SB_ANON_KEY = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
@@ -160,6 +162,7 @@ export default async function handler(req, res) {
 
     res.status(response.status).json(data);
   } catch (err) {
+    captureError(err, { handler: 'anthropic-analyse' });
     res.status(500).json({ error: err.message });
   }
 }

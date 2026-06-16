@@ -5,6 +5,7 @@ import {
   upsertSubscription,
   verifyPolarSignature,
 } from '../server/subscription-utils.js';
+import { captureError } from './_observability.js';
 
 const HANDLED_EVENTS = new Set([
   'order.created',
@@ -112,6 +113,7 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error(`[polar-webhook] Failed ${eventType || 'unknown'} ${eventId || ''}:`, error);
+    captureError(error, { handler: 'polar-webhook', eventType, eventId });
 
     try {
       if (eventId) {

@@ -2,6 +2,7 @@
 // Email queued in email_send_queue → process-email-queue Edge Fn sends immediately
 
 import { createHmac, timingSafeEqual } from 'crypto';
+import { captureError } from './_observability.js';
 
 const SB_REF = 'pttcugqwslvdstmrbyhu';
 const SB_PAT = process.env.SUPABASE_MANAGEMENT_API_TOKEN;
@@ -2783,6 +2784,7 @@ This document has been prepared through TradeDoc by LenmacAI — docs.lenmacai.c
   return res.status(400).json({ error: 'Unknown action' });
   } catch (err) {
     console.error('handler error:', err.message);
+    captureError(err, { handler: 'tradedoc', action: req?.query?.action });
     // Return friendly errors — never expose raw DB/server internals to UI
     const msg = err.message || '';
     if (msg.includes('not configured') || msg.includes('Database')) {

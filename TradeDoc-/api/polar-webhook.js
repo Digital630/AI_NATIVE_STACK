@@ -5,6 +5,7 @@
 // Official endpoint: https://docs.lenmacai.com/api/polar-webhook
 
 import { createHmac } from 'crypto';
+import { captureError } from './_observability.js';
 
 // Map Polar product IDs -> plan metadata. Fill in once TradeDoc's real
 // Polar product IDs are known. Unknown product IDs still activate Pro
@@ -406,6 +407,7 @@ export default async function handler(req, res) {
 
   } catch (err) {
     console.error('TradeDoc webhook handler error:', eventType, err.message);
+    captureError(err, { handler: 'polar-webhook', eventType, eventId });
     if (SB_KEY && eventId) {
       await sbRaw('PATCH', 'tradedoc_polar_events',
         'event_id=eq.' + encodeURIComponent(eventId), { error: err.message }).catch(() => {});
