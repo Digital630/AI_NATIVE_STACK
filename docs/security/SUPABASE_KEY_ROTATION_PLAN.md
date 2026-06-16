@@ -104,9 +104,10 @@ git log -p | grep "service_role" | grep "eyJ"
 Expected: no output (service role key was never in git).
 
 ```bash
-git log -p | grep "aMk9ZIzC9wQ1fWEK2itSlQ3qoQaOQJUTm7TDSwvbpaY"
+# Use the trailing signature segment of the OLD anon key as the search needle:
+git log -p | grep "<old-anon-key-signature>"
 ```
-This will show the old anon key in history (commits before `0949938`). This is acceptable for an anon key but confirms the history contains it.
+This will show the old anon key in history (commits before `0949938`). This is acceptable for an anon key (public by design) but confirms the history contains it.
 
 ---
 
