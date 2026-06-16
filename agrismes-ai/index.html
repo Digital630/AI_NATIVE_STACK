@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- AgriSMES Canonical Favicons & PWA Icons - Override all defaults -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1F7A3F">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="AgriSMES">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Google Analytics 4 - AgriSMES Production -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-32T8MWC1CV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-32T8MWC1CV', {
+        page_title: document.title,
+        page_location: window.location.href,
+        send_page_view: true
+      });
+      
+      // Signal-compressed event tracking for AgriSMES
+      // Focus on core conversions: page views, form submissions, CTA clicks, listing submissions
+      window.trackAgriSMESEvent = function(eventName, eventParams) {
+        gtag('event', eventName, eventParams || {});
+      };
+    </script>
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" />
+    
+    <!-- Google Search Console Verification -->
+    <!-- Replace VERIFICATION_CODE with your actual Google Search Console verification code -->
+    <meta name="google-site-verification" content="VERIFICATION_CODE" />
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>AgriSMES – Cashew Trade Margin Verification | Pre-Trade Intelligence</title>
+    <meta name="description" content="AgriSMES verifies whether a cashew trade will actually make money before capital commits. Stress test any RCN or kernel deal against real TCB auction data, outturn scenarios, and global freight intelligence." />
+    <meta name="keywords" content="cashew trade margin, RCN margin calculator, cashew export verification, pre-trade margin analysis, TCB levy calculator, cashew outturn analysis, Tanzania cashew export, W320 margin, cashew freight intelligence, commodity trade verification" />
+    <meta name="author" content="AgriSMES" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="geo.region" content="Global" />
+    <meta name="geo.placename" content="Global" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:site_name" content="AgriSMES" />
+    <meta property="og:title" content="AgriSMES – Cashew Trade Margin Verification" />
+    <meta property="og:description" content="Verify whether your cashew deal will actually make money before money moves. Calibrated against real TCB auction data." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://agrismes.com" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:locale:alternate" content="pt_BR" />
+    <meta property="og:image" content="https://agrismes.com/agrismes-logo.png" />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="1080" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AgriSMES – Cashew Trade Margin Verification" />
+    <meta name="twitter:description" content="Verify whether your cashew deal will actually make money before money moves. Real TCB data. Real freight intelligence." />
+    <meta name="twitter:image" content="https://agrismes.com/agrismes-logo.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://agrismes.com/" />
+    <link rel="alternate" hreflang="en" href="https://agrismes.com" />
+    <link rel="alternate" hreflang="fr" href="https://agrismes.com" />
+    <link rel="alternate" hreflang="es" href="https://agrismes.com" />
+    <link rel="alternate" hreflang="x-default" href="https://agrismes.com" />
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://agrismes.com/#organization",
+          "name": "AgriSMES",
+          "url": "https://agrismes.com",
+          "logo": {"@type": "ImageObject", "url": "https://agrismes.com/agrismes-logo.png"},
+          "description": "AgriSMES is the pre-trade margin verification infrastructure for the global cashew economy.",
+          "knowsAbout": ["cashew trade", "RCN margin verification", "Tanzania cashew export", "TCB auction data"]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgriSMES Trade Margin Analyser",
+          "applicationCategory": "BusinessApplication",
+          "url": "https://agrismes.com",
+          "description": "Verify whether a cashew trade will actually make money before capital commits.",
+          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is AgriSMES?",
+              "acceptedAnswer": {"@type": "Answer", "text": "AgriSMES is a pre-trade margin verification system for cashew traders, exporters, importers, processors, and brokers. It verifies whether the assumed economics of a cashew trade will survive reality before money moves."}
+            },
+            {
+              "@type": "Question",
+              "name": "How do I calculate cashew export margin?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Enter your RCN or kernel price, quantity, origin port, and destination into AgriSMES at agrismes.com. The system calculates your net yield, gross margin, breakeven price, and stress-tests against price drops, freight surges, and FX moves."}
+            },
+            {
+              "@type": "Question",
+              "name": "What is the TCB levy on cashew exports from Tanzania?",
+              "acceptedAnswer": {"@type": "Answer", "text": "The Tanzania Cashew Board (TCB) levy is 4% of the FOB price. AgriSMES automatically applies this and calibrates prices against real TCB auction data from the 2024/25 and 2025/26 seasons."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    </head>
+
+  <body>
+    <script>
+      // AgriSMES SW Guard — destroys stale service workers on every load
+      // Prevents old cached bundles from blocking new deployments
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs) {
+          regs.forEach(function(reg) { reg.unregister(); });
+        });
+        caches.keys().then(function(names) {
+          names.forEach(function(name) { caches.delete(name); });
+        });
+      }
+    </script>
+    <div id="root"></div>
+    <script>
+window.onerror = function(msg, src, line, col, err) {
+  document.body.innerHTML = '<div style="padding:40px;font-family:monospace;background:#fff">' +
+    '<h2 style="color:red">Error</h2>' +
+    '<p>' + msg + '</p>' +
+    '<p>Line: ' + line + '</p>' +
+    '<p>' + (err ? err.stack : '') + '</p>' +
+    '</div>';
+};
+window.addEventListener("unhandledrejection", function(e) {
+  document.body.innerHTML = '<div style="padding:40px;font-family:monospace;background:#fff">' +
+    '<h2 style="color:red">Promise Error</h2>' +
+    '<p>' + (e.reason ? e.reason.toString() : 'unknown') + '</p>' +
+    '</div>';
+});
+</script>
+<script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

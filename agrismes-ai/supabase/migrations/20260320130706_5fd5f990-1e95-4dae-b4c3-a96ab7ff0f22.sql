@@ -1,0 +1,1 @@
+ALTER TABLE public.ask_agrismes_queries ADD COLUMN IF NOT EXISTS model_used text DEFAULT 'gpt-5.3';

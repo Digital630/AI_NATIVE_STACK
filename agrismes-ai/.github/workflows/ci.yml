@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "fix/**", "feat/**"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: Install & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install --prefer-offline
+
+      - name: Build
+        run: npm run build
+        env:
+          # Vite replaces these at build time — supply minimal stubs so the
+          # build succeeds in CI without real credentials.
+          VITE_SUPABASE_URL: https://placeholder.supabase.co
+          VITE_SUPABASE_PUBLISHABLE_KEY: placeholder_anon_key
+
+      - name: Smoke tests
+        run: npm test
+        env:
+          VITE_SUPABASE_URL: https://placeholder.supabase.co
+          VITE_SUPABASE_ANON_KEY: placeholder_anon_key
+
+      - name: Lint
+        run: npm run lint
+        continue-on-error: true

@@ -1,0 +1,2 @@
+[functions.tradedoc]
+verify_jwt = true

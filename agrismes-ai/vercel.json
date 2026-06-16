@@ -1,0 +1,52 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "functions": {
+    "api/notify-pro.js": {
+      "maxDuration": 30
+    },
+    "api/signals.js": {
+      "maxDuration": 30
+    },
+    "api/anthropic-analyse.js": {
+      "maxDuration": 60
+    },
+    "api/polar-webhook.js": {
+      "maxDuration": 30
+    },
+    "api/auth-otp.js": {
+      "maxDuration": 30
+    }
+  }
+}

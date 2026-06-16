@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide Lovable badge */
+#lovable-badge {
+  display: none !important;
+}
+
+@layer base {
+  :root {
+    /* Perplexity-style design system — clean, minimal, professional */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 97%;
+    --secondary-foreground: 0 0% 7%;
+
+    --muted: 220 14% 97%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 220 14% 97%;
+    --accent-foreground: 0 0% 7%;
+
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
+
+    --radius: 0.5rem;
+
+    --chart-1: 221 83% 53%;
+    --chart-2: 220 9% 46%;
+    --chart-3: 0 0% 7%;
+    --chart-4: 220 13% 91%;
+    --chart-5: 220 14% 97%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 7%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 97%;
+    --sidebar-accent-foreground: 0 0% 7%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 221 83% 53%;
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 12%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 220 14% 12%;
+    --muted-foreground: 220 9% 60%;
+    --accent: 220 14% 12%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 14% 18%;
+    --input: 220 14% 18%;
+    --ring: 221 83% 53%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 220 14% 18%;
+    --sidebar-ring: 221 83% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  /* Mobile: prevent page-wide horizontal scroll/shift from any element
+     that's slightly wider than the viewport (long lines, fixed-width
+     rows of pills/buttons, etc.) -- clips overflow instead of letting the
+     whole page shift left/right. */
+  html, body, #root {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+}

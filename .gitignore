@@ -1,23 +1,49 @@
-# Secrets — never commit
+# ── Secrets — never commit ────────────────────────────────────────────────────
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+*.p8
+*.p12
 
-# OS / editor
+# ── Build artifacts ───────────────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+dev-dist/
+.vercel/
+.next/
+.nuxt/
+
+# ── Capacitor / mobile build outputs ─────────────────────────────────────────
+android/
+ios/
+TradeDoc-/android/
+TradeDoc-/ios/
+agrismes-ai/android/
+agrismes-ai/ios/
+
+# ── OS / editor ───────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 *.swp
 *~
+.cursor/
 
-# Dependencies (future SignalOS / app code)
-node_modules/
-dist/
-build/
-
-# Logs
+# ── Logs ──────────────────────────────────────────────────────────────────────
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Local-only report binaries (add PDFs here; not versioned by default)
+# ── Test / coverage output ────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ── Local-only report binaries ────────────────────────────────────────────────
 assets/reports/*
 !assets/reports/.gitkeep
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.tsbuildinfo

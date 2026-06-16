@@ -1,0 +1,49 @@
+project_id = "blwahyqkwqvffdqxzuzn"
+
+[functions.submit-inquiry]
+verify_jwt = false
+
+[functions.send-chat-message]
+verify_jwt = false
+
+[functions.chat-triage]
+verify_jwt = false
+
+[functions.chat-stream]
+verify_jwt = false
+
+[functions.generate-commodity-image]
+verify_jwt = false
+
+[functions.admin-messages]
+verify_jwt = false
+
+[functions.admin-verify]
+verify_jwt = false
+
+[functions.admin-lockout-check]
+verify_jwt = false
+
+[functions.analyze-product-image]
+verify_jwt = false
+
+[functions.analyze-moisture-content]
+verify_jwt = false
+
+[functions.analyze-weight-scale]
+verify_jwt = false
+
+[functions.analyze-quality-control]
+verify_jwt = false
+
+[functions.global-weather]
+verify_jwt = false
+
+[functions.admin-listings]
+verify_jwt = false
+
+[functions.trade-intelligence]
+verify_jwt = false
+
+[functions.ask-agrismes]
+verify_jwt = false
