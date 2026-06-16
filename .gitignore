@@ -1,0 +1,23 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Dependencies (future SignalOS / app code)
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local-only report binaries (add PDFs here; not versioned by default)
+assets/reports/*
+!assets/reports/.gitkeep

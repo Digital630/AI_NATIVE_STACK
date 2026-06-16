@@ -512,4 +512,12 @@ That creates:
 Long-term:
 TanzaLoad can evolve into a core logistics intelligence infrastructure layer for Africa.
 
+---
+
+## Ecosystem navigation
+
+Repository: [README.md](../../README.md) · **Related:** [SignalOS™](../signalos/SIGNALOS_MASTER.md)
+
+---
+
 END OF FILE

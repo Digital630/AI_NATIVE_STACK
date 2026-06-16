@@ -563,4 +563,21 @@ NOT:
 
 ---
 
+## Ecosystem navigation
+
+Repository: [README.md](../../README.md) · [Documentation index](../README.md)
+
+| System | Master document |
+|--------|-----------------|
+| LenmacAI™ | [LENMACAI_MASTER.md](../lenmacai/LENMACAI_MASTER.md) |
+| SmartDoc Portal™ | [SMARTDOC_MASTER.md](../smartdoc/SMARTDOC_MASTER.md) |
+| AgriSMES™ | [AGRISMES_MASTER.md](../agrismes/AGRISMES_MASTER.md) |
+| VisitMtwara™ | [VISITMTWARA_MASTER.md](../visitmtwara/VISITMTWARA_MASTER.md) |
+| TrabzonHub™ | [TRABZONHUB_MASTER.md](../trabzonhub/TRABZONHUB_MASTER.md) |
+| Tanzaload™ | [TANZALOAD_MASTER.md](../tanzaload/TANZALOAD_MASTER.md) |
+
+Future router placeholder: [services/signalos/README.md](../../services/signalos/README.md)
+
+---
+
 Powered by LenDigital Solutions

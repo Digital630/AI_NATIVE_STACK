@@ -462,4 +462,10 @@ NOT:
 
 ---
 
+## Ecosystem navigation
+
+Repository: [README.md](../../README.md) · **Related:** [SignalOS™](../signalos/SIGNALOS_MASTER.md)
+
+---
+
 Powered by LenDigital Solutions

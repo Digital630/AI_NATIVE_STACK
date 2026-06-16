@@ -161,5 +161,10 @@ KEY FILES
 → prevents secret upload to GitHub
 
 server.js
-→ backend orchestration server
-NAME_MASTER.md ( This is for saving file inside proejct)
+→ backend orchestration server (future SignalOS router repo)
+
+docs/{product}/PRODUCT_MASTER.md
+→ master documents in this repo (see README.md)
+
+services/signalos/
+→ reserved folder for future modular router

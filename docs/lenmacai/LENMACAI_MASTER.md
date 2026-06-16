@@ -1,4 +1,3 @@
-LENMACAI_MASTER.md — MASTER STRUCTURE
 # LENMACAI™
 ## MASTER OPERATIONAL MEMORY & AI-NATIVE EXPORT INFRASTRUCTURE
 
@@ -456,6 +455,12 @@ LenmacAI™ should always feel:
 NOT:
 
 “I am browsing a generic export website.”
+
+---
+
+## Ecosystem navigation
+
+Repository: [README.md](../../README.md) · **Related:** [SignalOS™](../signalos/SIGNALOS_MASTER.md) · [AgriSMES™](../agrismes/AGRISMES_MASTER.md) · [VisitMtwara™](../visitmtwara/VISITMTWARA_MASTER.md)
 
 ---
 

@@ -389,6 +389,14 @@ SmartDoc Portal™ should always feel:
 “I am interacting with a professional operational coordination system.”
 NOT:
 “I am browsing a generic website.”
- 
+
+---
+
+## Ecosystem navigation
+
+Repository: [README.md](../../README.md) · **Related:** [SignalOS™](../signalos/SIGNALOS_MASTER.md)
+
+---
+
 Powered by LenDigital Solutions
 

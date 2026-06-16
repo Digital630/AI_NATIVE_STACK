@@ -1,5 +1,7 @@
 # AI-OPS LEARNING PATH
 
+Repository: [README.md](../../README.md) · [Documentation index](../README.md)
+
 ---
 
 # 1. TERMINAL FOUNDATIONS
