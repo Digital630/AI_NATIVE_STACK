@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase'
 
 interface Calculation {
@@ -18,7 +19,7 @@ interface Calculation {
   destination_port: string
 }
 
-export default function History({ session, onBack }: { session: any, onBack: () => void }) {
+export default function History({ session, onBack }: { session: Session | null, onBack: () => void }) {
   const [calculations, setCalculations] = useState<Calculation[]>([])
   const [loading, setLoading] = useState(true)
   const [copied, setCopied] = useState<string | null>(null)

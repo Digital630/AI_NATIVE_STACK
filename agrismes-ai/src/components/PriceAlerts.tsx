@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import type { Session } from '@supabase/supabase-js'
 
 const SB_URL = import.meta.env.VITE_SUPABASE_URL as string
 const ANON   = import.meta.env.VITE_SUPABASE_ANON_KEY as string
@@ -8,7 +9,7 @@ const COUNTRIES = ['Tanzania','Ivory Coast','Benin','Vietnam','India','Mozambiqu
 
 interface Alert { id:string; grade:string; alert_type:string; threshold_usd_mt:number; is_active:boolean; trigger_count:number; last_triggered_at:string|null }
 
-export default function PriceAlerts({ session, onUpgradeRequest }: { session:any; onUpgradeRequest?:()=>void }) {
+export default function PriceAlerts({ session, onUpgradeRequest }: { session: Session | null; onUpgradeRequest?: () => void }) {
   const [alerts, setAlerts]   = useState<Alert[]>([])
   const [loading, setLoading] = useState(true)
   const [adding, setAdding]   = useState(false)

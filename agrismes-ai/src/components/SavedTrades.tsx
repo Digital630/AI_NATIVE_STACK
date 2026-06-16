@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import type { Session } from '@supabase/supabase-js'
 
 const SB_URL = import.meta.env.VITE_SUPABASE_URL as string
 const ANON   = import.meta.env.VITE_SUPABASE_ANON_KEY as string
@@ -19,7 +20,7 @@ interface SavedTrade {
 }
 
 interface Props {
-  session: any
+  session: Session | null
   onLoadTrade?: (input: string) => void
   onUpgradeRequest?: () => void
 }

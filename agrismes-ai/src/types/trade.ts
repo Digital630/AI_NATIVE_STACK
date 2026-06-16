@@ -83,3 +83,23 @@ export interface ThreadMessage {
   context_variables?: Partial<SessionContext>;
   is_deep_research?: boolean;
 }
+
+// ─── Freight Intelligence API (fetch-freight-intelligence edge function) ──────
+export interface FreightAlert {
+  level: "critical" | "warning" | "info";
+  title: string;
+  body: string;
+}
+
+export interface FreightRoute {
+  route: string;
+  price_usd_mt: number;
+  change_usd_mt: number;
+  season_note: string;
+}
+
+export interface FreightIntelligenceResponse {
+  success: boolean;
+  alerts?: FreightAlert[];
+  routes?: FreightRoute[];
+}

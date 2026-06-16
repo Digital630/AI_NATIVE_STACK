@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import type { Session } from '@supabase/supabase-js'
 
 const SB_URL = import.meta.env.VITE_SUPABASE_URL as string
 const ANON   = import.meta.env.VITE_SUPABASE_ANON_KEY as string
@@ -24,7 +25,7 @@ interface Calc {
   role: string
 }
 
-interface Props { session: any; onUpgradeRequest?: () => void }
+interface Props { session: Session | null; onUpgradeRequest?: () => void }
 
 const signalColor = (d: string) =>
   d?.includes('PROCEED') ? '#15803D' : d?.includes('CAUTION') ? '#92400E' : '#991B1B'

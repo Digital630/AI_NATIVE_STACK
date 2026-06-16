@@ -1,5 +1,11 @@
 import { LANGS, ANALYSE_BTN } from '../langs'
 import React, { useState, useRef, useEffect } from 'react'
+import type { Session } from '@supabase/supabase-js'
+
+interface PaddleGlobal {
+  Environment: { set: (env: string) => void }
+  Initialize: (opts: { token: string }) => void
+}
 import { useUsage } from '../hooks/useUsage'
 import { PaywallBanner } from '../components/PaywallBanner'
 import VerificationLayer from '../components/VerificationLayer'
@@ -115,8 +121,8 @@ async function lookupFreightRate(origin: string, destination: string): Promise<n
         }]
       })
     })
-    const data = await response.json().catch(() => ({}))
-    const text = data.content?.filter((b: any) => b.type === 'text').map((b: any) => b.text).join('')
+    const data: { content?: Array<{ type: string; text?: string }> } = await response.json().catch(() => ({}))
+    const text = data.content?.filter((b) => b.type === 'text').map((b) => b.text).join('')
     const match = text?.match(/\d+(\.\d+)?/)
     if (match) {
       const rate = parseFloat(match[0])
@@ -125,7 +131,9 @@ async function lookupFreightRate(origin: string, destination: string): Promise<n
         return rate
       }
     }
-  } catch (_) {}
+  } catch {
+    // Network/parse failure — fall through to default freight rate below
+  }
   return null
 }
 
@@ -319,7 +327,7 @@ const fmtD = (n: number) =>
 
 // ─── Main Component ─────────────────────────────────────────────────────────
 
-function AccountPanel({ session, onHistoryRequest }: { session: any; onHistoryRequest: () => void }) {
+function AccountPanel({ session, onHistoryRequest }: { session: Session | null; onHistoryRequest: () => void }) {
   const [open, setOpen] = React.useState(false);
   const email = session?.user?.email || '';
   const initials = email.charAt(0).toUpperCase();
@@ -357,7 +365,7 @@ function AccountPanel({ session, onHistoryRequest }: { session: any; onHistoryRe
   );
 }
 
-export default function TradeMarginCalculator({ session, onSignInRequest, onUpgradeRequest, onHistoryRequest }: { session: any, onSignInRequest: (reason?: 'second_run' | 'limit_reached') => void, onUpgradeRequest: () => void, onHistoryRequest: () => void }) {
+export default function TradeMarginCalculator({ session, onSignInRequest, onUpgradeRequest, onHistoryRequest }: { session: Session | null, onSignInRequest: (reason?: 'second_run' | 'limit_reached') => void, onUpgradeRequest: () => void, onHistoryRequest: () => void }) {
   const { canRun, needsAuth, needsUpgrade, incrementRun, runCount, getLimit, plan, subscription } = useUsage(session)
   const [role, setRole] = useState<Role>('Exporter')
   const [userInput, setUserInput] = useState('')
@@ -370,10 +378,10 @@ export default function TradeMarginCalculator({ session, onSignInRequest, onUpgr
   const [showCostBreakdown, setShowCostBreakdown] = useState(false)
 
   const [emailSubmitted, setEmailSubmitted] = useState(false)
-  const [paddle, setPaddle] = useState<any>(null)
+  const [paddle, setPaddle] = useState<PaddleGlobal | null>(null)
 
   useEffect(() => {
-    const win = window as any
+    const win = window as Window & { Paddle?: PaddleGlobal }
     if (win.Paddle) {
       win.Paddle.Environment.set('production')
       win.Paddle.Initialize({ token: import.meta.env.VITE_PADDLE_CLIENT_TOKEN })

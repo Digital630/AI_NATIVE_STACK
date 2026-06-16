@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import type { Session } from '@supabase/supabase-js';
 import { track } from "../lib/track";
 import { TrendingUp, TrendingDown, Minus, Lock, ChevronDown } from "lucide-react";
+import type { FreightAlert, FreightRoute, FreightIntelligenceResponse } from "../types/trade";
 
 const SB_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const ANON = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
@@ -93,9 +95,9 @@ function InfoCard({ color, title, text }: { color:"green"|"amber"|"red"; title:s
   );
 }
 
-function AlertItem({ alertData }: { alertData: any }) {
+function AlertItem({ alertData }: { alertData: FreightAlert }) {
   const [open, setOpen] = useState(false);
-  const levelStyles: any = {
+  const levelStyles: Record<string, { border: string; bg: string; dot: string; text: string; label: string }> = {
     critical:{border:"rgba(239,68,68,0.3)",bg:"rgba(239,68,68,0.08)",dot:"#ef4444",text:"#fca5a5",label:"#ef4444"},
     warning:{border:"rgba(251,191,36,0.3)",bg:"rgba(251,191,36,0.08)",dot:"#fbbf24",text:"#fde68a",label:"#fbbf24"},
     info:{border:"rgba(59,130,246,0.3)",bg:"rgba(59,130,246,0.08)",dot:"#3b82f6",text:"#bfdbfe",label:"#3b82f6"},
@@ -130,10 +132,10 @@ function ProGateBlock({ label, sub, onUpgrade }: { label:string; sub:string; onU
   );
 }
 
-export default function MarketIntelligence({ session, onUpgradeRequest }: { session: any; onUpgradeRequest?: () => void }) {
+export default function MarketIntelligence({ session, onUpgradeRequest }: { session: Session | null; onUpgradeRequest?: () => void }) {
   const [activeTab, setActiveTab] = useState("KERNELS");
-  const [liveAlerts, setLiveAlerts] = useState<any[]>([]);
-  const [liveRoutes, setLiveRoutes] = useState<any[]>([]);
+  const [liveAlerts, setLiveAlerts] = useState<FreightAlert[]>([]);
+  const [liveRoutes, setLiveRoutes] = useState<FreightRoute[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const isLoggedIn = !!session;
@@ -141,7 +143,7 @@ export default function MarketIntelligence({ session, onUpgradeRequest }: { sess
   useEffect(() => {
     track("market_prices_view", { user_id: session && session.user ? session.user.id : undefined, email: session && session.user ? session.user.email : undefined, page: "/market" });
     fetch(SB_URL + "/functions/v1/fetch-freight-intelligence?type=all", { headers: { apikey: ANON } })
-      .then(function(resp) { return resp.json(); })
+      .then(function(resp) { return resp.json() as Promise<FreightIntelligenceResponse>; })
       .then(function(data) {
         if (data.success) {
           setLiveAlerts(data.alerts || []);
@@ -153,7 +155,7 @@ export default function MarketIntelligence({ session, onUpgradeRequest }: { sess
   }, []);
 
   const freightRoutes = liveRoutes.length > 0
-    ? liveRoutes.map(function(item: any) { return { route: item.route, price: item.price_usd_mt, chg: item.change_usd_mt, note: item.season_note }; })
+    ? liveRoutes.map(function(item: FreightRoute) { return { route: item.route, price: item.price_usd_mt, chg: item.change_usd_mt, note: item.season_note }; })
     : FREIGHT;
 
   return (
@@ -241,11 +243,11 @@ export default function MarketIntelligence({ session, onUpgradeRequest }: { sess
             {loaded && liveAlerts.length > 0 && (
               <div style={{marginBottom:20}}>
                 <div style={{fontSize:10,fontWeight:700,textTransform:"uppercase" as const,letterSpang:1.5,color:"#475569",marginBottom:10}}>Live Intelligence Alerts</div>
-                {liveAlerts.map(function(alertItem:any, idx:number){ return <AlertItem key={idx} alertData={alertItem}/>; })}
+                {liveAlerts.map(function(alertItem: FreightAlert, idx:number){ return <AlertItem key={idx} alertData={alertItem}/>; })}
               </div>
             )}
             <Section title="Global Cashew Trade Routes">
-              {freightRoutes.map(function(f:any,idx:number,arr:any[]){
+              {freightRoutes.map(function(f: { route: string; price: number; chg: number; note: string }, idx: number, arr: { route: string; price: number; chg: number; note: string }[]){
                 return <PriceItem key={f.route} label={f.route} note={f.note} change={f.chg} price={f.price} last={idx===arr.length-1}/>;
               })}
             </Section>
